@@ -1,0 +1,31 @@
+@url = https://services.odata.org/northwind/northwind.svc/
+
+## Obtener los metadatos de la API
+#GET https://services.odata.org/Northwind/Northwind.svc/$metadata
+## Obtener los metadatos de la API
+
+
+#GET {{url}}/Products?$format=json&$top=5
+##Obtener los 5 primeros productos
+
+## Obtener las ordenes(Orders) con el detalle del cliente(Customer)
+GET {{url}}/Orders?$format=json&$expand=Customer
+
+
+## Obtener los empleados(Employees) que reportan(ReportsTo) al manager "2"
+GET {{url}}/Employees?$format=json&$filter=ReportsTo eq 2
+
+## Obtener los productos(Products) que tienen stock(UnitInStock) > 0
+GET {{url}}/Products?$format=json&$filter=UnitsInStock gt 0
+
+## Obtener solo los nombres(ProductName) y códigos(ProductID) de productos que NO ( > 0) tienen stock (UnitsInStock)
+GET {{url}}/Products?$format=json&$select=ProductName,ProductID, UnitsInStock&$filter=UnitsInStock le 0
+
+## Obtener los 5 (top=5) productos(Products) más caros(UnitPrice)  Order by DESC
+GET {{url}}/Products?$format=json&$orderby=UnitPrice desc&$top=5
+
+## Encontrar las ordenes(Orders) que fueron enviadas a Germany(ShipCountry)
+GET {{url}}/Orders?$format=json&$filter=ShipCountry eq 'Germany'
+
+## Obtener solo los nombres(ProductName) y los precios(UnitPrice) de los productos(Products) de la categoria(Category) "Beverages"
+GET {{url}}/Products?$format=json&$select=ProductName,UnitPrice&$filter=Category/CategoryName eq 'Beverages'
